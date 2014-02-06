@@ -2,8 +2,6 @@ package edu.grinnell.csc207.username.utils;
 
 import static org.junit.Assert.*;
 
-import org.junit.Test;
-
 public class StringUtilsTest
 {
 
@@ -56,6 +54,34 @@ public class StringUtilsTest
     assertArrayEquals ("trailing empty field", new String[] { "a", "" },
                        StringUtils.splitAt ("a:", ':'));
     }
-  }
+    
+    @Test
+    public void
+      test8 () 
+    {
+  assertEquals ("e", StringUtils.deLeet ("3"));
+    }
+    @Test
+    public void
+      test9 ()
+    {
+  assertEquals ("leet", StringUtils.deLeet ("133+"));
+    }
+    @Test
+    public void
+      test10 ()
+    {
+  assertEquals ("eat banana", StringUtils.deLeet ("3@+ |3@|\\|@|\\|@"));
+    }
+    @Test
+    public void
+      test11 ()
+    {
+    assertEquals (BigInteger.valueOf (0), Calculator.eval0 ("0"));
+    assertEquals (BigInteger.valueOf (2), Calculator.eval0 ("1 + 1"));
+    assertEquals (BigInteger.valueOf (4), Calculator.eval0 ("1 + 2 + 1"));
+    assertEquals (BigInteger.valueOf (9), Calculator.eval0 ("1 + 2 * 3"));
+    }
+}
 
 
