@@ -44,6 +44,53 @@ return result;
 
  }// stringSplit
   
+ public static
+ String[] splitCSV (String str)
+  { 
+    java.util.ArrayList<String> DynStrs = new java.util.ArrayList<String>();
+    //Current char
+    char ch;
+    //Most recent split
+    int lastbreak = 0;
+    //Temp string (unneeded but makes code more readable IMO
+    String temp;
+    //Loops through the string
+    for (int i = 0;i < str.length(); i++)
+      {
+        ch = str.charAt(i);
+        //If there's a quote
+        if (ch == 34)
+          {
+            //If that quote is followed by a second quote
+            if (str.charAt (i+1) == 34)
+              {
+                //Add a substring including quotes within quotes
+                temp = str.substring (i + 1, (str.indexOf ('"', i + 2)));
+                DynStrs.add (temp);
+                lastbreak = str.indexOf ('"', i + 2) + 2;
+                i = str.indexOf ('"', (i + 2)) + 1;
+              }
+            else
+              //otherwise add a substring without quotes
+            temp = str.substring (i + 1, (str.lastIndexOf ('"')));
+            DynStrs.add (temp);
+            lastbreak = str.lastIndexOf ('"') + 2;
+            i = str.lastIndexOf('"') + 1;
+          } //if current char is a "
+        else if (ch == 44)
+          {
+            temp = str.substring (lastbreak, i);
+            if (lastbreak - i != 0)
+            DynStrs.add (temp);
+            lastbreak = i + 1;
+          } //if current char is a ,
+      }//end string parsing
+    DynStrs.add (str.substring (lastbreak));
+    DynStrs.trimToSize ();
+    String[] result = new String[DynStrs.size ()];
+    DynStrs.toArray (result);
+    return result;
+  }
   
   //Method deLeet:
   //Takes a string of 1337 text and translates it to plain english. Only letters: a, b, c, d, e, l, n, o, t implemented.
@@ -76,7 +123,7 @@ return result;
           else if ((ch == 124) && str.charAt(counter + 1) == 51){
           buf.append ('b');
           counter = counter + 2;
-          }// |3
+          }// |3,
         else if (ch == 60){
           buf.append ('c');
           counter++;
@@ -144,7 +191,8 @@ return result;
   nameGame ("Shirley");
   nameGame ("Lincoln");
   nameGame ("Phineas");
-
+ 
+  
   } //Main Tests
 
 }//End Class
