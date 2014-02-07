@@ -82,6 +82,17 @@ public class StringUtilsTest
     assertEquals (BigInteger.valueOf (4), Calculator.eval0 ("1 + 2 + 1"));
     assertEquals (BigInteger.valueOf (9), Calculator.eval0 ("1 + 2 * 3"));
     }
+    @Test
+    public void
+      test12 ()
+    {
+    assertArrayEquals (new String[] { "a", "b", "c" },
+                       StringUtils.splitCSV("a,b,c"));
+    assertArrayEquals (new String[] { "a,b", "c" },
+                       StringUtils.splitCSV("\"a,b\",c"));
+    assertArrayEquals (new String[] { "a", "b,b\"", "c" },
+                       StringUtils.splitCSV("a,\"b,b\"\"\",c"));
+      }
 }
 
 
